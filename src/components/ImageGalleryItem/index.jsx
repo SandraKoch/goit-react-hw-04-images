@@ -1,36 +1,33 @@
 import { Modal } from 'components/Modal';
 import css from './ImageGalleryItem.module.css';
-import { Component } from 'react';
+import { useState } from 'react';
 
-export class ImageGalleryItem extends Component {
-  state = {
-    isOpened: false,
+export const ImageGalleryItem = props => {
+  const [isOpened, setIsOpened] = useState(false);
+
+  const openModalFn = () => {
+    setIsOpened(true);
   };
 
-  openModalFn = () => {
-    this.setState({ isOpened: true });
+  const closeModalFn = () => {
+    setIsOpened(false);
   };
 
-  closeModalFn = () => {
-    this.setState({ isOpened: false });
-  };
+  const { webformatURL, largeImageURL, tags } = props.item;
 
-  render() {
-    const { webformatURL, largeImageURL, tags } = this.props.item;
-    return (
-      <>
-        <li className={css.galleryItem}>
-          <img
-            className={css.galleryImage}
-            onClick={this.openModalFn}
-            src={webformatURL}
-            alt={tags}
-          />
-        </li>
-        <Modal openModal={this.state.isOpened} onClose={this.closeModalFn}>
-          <img src={largeImageURL} alt={tags} />
-        </Modal>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <li className={css.galleryItem}>
+        <img
+          className={css.galleryImage}
+          onClick={openModalFn}
+          src={webformatURL}
+          alt={tags}
+        />
+      </li>
+      <Modal openModal={isOpened} onClose={closeModalFn}>
+        <img src={largeImageURL} alt={tags} />
+      </Modal>
+    </>
+  );
+};

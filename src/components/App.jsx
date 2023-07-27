@@ -52,8 +52,8 @@ export const App = () => {
     <div>
       <Searchbar onSearch={query => searchImages(query)} />
       <ImageGallery images={images} />
-      <Loader visible={loading} />
-      {loadMoreVisible && <Button onClick={loadMoreFn} />}
+      <Loader isVisible={loading} />
+      {loadMoreVisible && <Button onLoadMore={loadMoreFn} />}
     </div>
   );
 };
